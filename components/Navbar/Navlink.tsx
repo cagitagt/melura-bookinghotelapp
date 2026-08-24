@@ -23,7 +23,7 @@ const Navlink = () => {
           hidden: !open,
         })}
       >
-        <ul className="flex flex-col font-semibold text-sm p-4 mt-4 rounded-sm bg-taupe-50 md:flex-row md:items-center md:space-x-10 md:p-0 md:mt-0 md:border-0 md:bg-taupe-50">
+        <ul className="flex flex-col font-semibold text-sm p-4 mt-4 rounded-sm bg-taupe-50 md:flex-row md:items-center md:space-x-8 md:p-0 md:mt-0 md:border-0 md:bg-taupe-50">
           <li>
             <Link
               href="/"
@@ -81,7 +81,7 @@ const Navlink = () => {
             </Link>
           </li>  
           <li className="pt-2 md:pt-0">
-            <Link href="/signin" className="py-2 px-4 bg-taupe-700 text-white hover:bg-taupe-800 rounded-4xl">Sign In</Link>
+            <Link href="/signin" className="py-2 px-6 bg-taupe-700 text-white hover:bg-taupe-800 rounded-4xl">Sign In</Link>
           </li>
         </ul>
       </div>

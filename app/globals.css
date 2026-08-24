@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@theme {
+  --font-lato: var(--font-lato);
+  --font-raleway: var(--font-raleway);
+  --font-playfair: var(--font-playfair);
+}
