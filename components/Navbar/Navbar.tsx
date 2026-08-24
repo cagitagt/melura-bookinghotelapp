@@ -6,7 +6,7 @@ import Navlink from "./Navlink";
 const Navbar = () => {
   return (
     <div className="fixed top-0 w-full bg-taupe-50 z-50">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between md:px-12 py-4 px-5">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between md:px-12 py-2 px-5">
         <Link href="/">
           <Image
             src="/assets/svg/cagitalogoblack.svg"
