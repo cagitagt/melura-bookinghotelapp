@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Raleway, Lato, Playfair_Display } from "next/font/google";
-
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -26,16 +27,20 @@ export const metadata: Metadata = {
   description: "Book Hotel",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+
+  const session = await auth();
   return (
     <html
       lang="en"
       className={`${lato.variable} ${raleway.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-lato">
-        <Navbar />
-        <main className="bg-taupe-50 min-h-screen">{children}</main>
-        <Footer />
+        <SessionProvider session={session}>
+          <Navbar />
+          <main className="bg-taupe-50 min-h-screen">{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import {Metadata} from "next";
 import HeaderSection from "@/components/HeaderSection";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +10,12 @@ import {
   IoSparklesOutline,
 } from "react-icons/io5";
 
-const Page = () => {
+export const metadata: Metadata = {
+    title: "About",
+    description: "Who we are"
+}
+
+const AboutPage = () => {
   return (
     <div>
       <HeaderSection
@@ -189,4 +195,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default AboutPage;
