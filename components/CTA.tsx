@@ -47,7 +47,7 @@ const CTA = () => {
       </p>
 
       <Link
-        href="/reservation"
+        href="/room"
         className="inline-block px-8 py-3 border border-taupe-800 text-taupe-800 rounded-full text-sm font-medium hover:bg-taupe-800 hover:text-taupe-50 transition-colors duration-200"
       >
         Book Your Stay
