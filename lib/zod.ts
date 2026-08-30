@@ -17,3 +17,8 @@ export const ContactSchema = object({
     message: string().min(50, "Message at least 50 characters").max(200, "Message maximum 200 characters"),
 })
 
+export const ReserveSchema = object({
+    name: string().min(1, "Name is required"),
+    phone: string().min(10, "Phone number must be greater than 9")
+});
+
