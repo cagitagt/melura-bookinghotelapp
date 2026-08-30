@@ -3,16 +3,17 @@
 import { useRef, useState, useTransition } from "react";
 import { useActionState } from "react";
 import { type PutBlobResult } from "@vercel/blob";
-import { saveRoom } from "@/lib/action";
+import { updateRoom } from "@/lib/action";
 import { IoCloudUploadOutline, IoTrashOutline } from "react-icons/io5";
 import { BarLoader } from "react-spinners";
 import { Amenities } from "@/app/generated/prisma/client";
+import { RoomProps } from "@/types/room"; 
 import Image from "next/image";
 import clsx from "clsx";
 
-const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
+const EditForm = ({ amenities,room }: { amenities: Amenities[]; room: RoomProps }) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(room.image);
   const [message, setMessage] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -54,9 +55,11 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
   };
 
   const [state, formAction, isPending] = useActionState(
-    saveRoom.bind(null, image),
+    updateRoom.bind(null, image, room.id),
     null,
   );
+
+  const checkedAmenities = room.RoomAmenities.map((item) => item.amenitiesId)
 
   return (
     <form action={formAction}>
@@ -66,6 +69,7 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
             <input
               type="text"
               name="name"
+              defaultValue={room.name}
               className="py-2 px-3 text-sm rounded-full border border-taupe-200 w-full text-taupe-800 placeholder:text-taupe-400 focus:outline-none focus:border-taupe-500 transition-colors duration-200"
               placeholder="Room Name"
             />
@@ -81,6 +85,7 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
               <input
                 type="text"
                 name="capacity"
+                defaultValue={room.capacity}
                 className="py-2 px-3 text-sm rounded-full border border-taupe-200 w-full text-taupe-800 placeholder:text-taupe-400 focus:outline-none focus:border-taupe-500 transition-colors duration-200"
                 placeholder="Capacity"
               />
@@ -94,6 +99,7 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
               <input
                 type="text"
                 name="price"
+                defaultValue={room.price}
                 className="py-2 px-3 text-sm rounded-full border border-taupe-200 w-full text-taupe-800 placeholder:text-taupe-400 focus:outline-none focus:border-taupe-500 transition-colors duration-200"
                 placeholder="Price"
               />
@@ -109,6 +115,7 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
             <textarea
               name="description"
               rows={4}
+              defaultValue={room.description}
               className="py-2 px-3 text-sm rounded-xl border border-taupe-200 w-full text-taupe-800 placeholder:text-taupe-400 focus:outline-none focus:border-taupe-500 transition-colors duration-200 resize-none"
               placeholder="Description"
             ></textarea>
@@ -130,6 +137,7 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
                     type="checkbox"
                     name="amenities"
                     defaultValue={item.id}
+                    defaultChecked={checkedAmenities.includes(item.id)}
                     className="w-3.5 h-3.5 text-taupe-700 bg-taupe-50 border-taupe-300 rounded focus:ring-taupe-400"
                   />
                   <label className="ms-1.5 text-sm font-medium text-taupe-700 capitalize">
@@ -207,7 +215,7 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
             )}
             disabled={isPending}
           >
-            {isPending ? "Saving..." : "Save"}
+            {isPending ? "Updating..." : "Update"}
           </button>
         </div>
       </div>
@@ -215,4 +223,4 @@ const CreateForm = ({ amenities }: { amenities: Amenities[] }) => {
   );
 };
 
-export default CreateForm;
+export default EditForm;

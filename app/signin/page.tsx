@@ -6,7 +6,18 @@ export const metadata: Metadata = {
   title: "Sign In",
 };
 
-const SignInPage = () => {
+const SignInPage = async({
+  searchParams
+} : {
+  searchParams?: Promise<{redirect_url?: string}>
+}) => {
+  const params = (await searchParams)?.redirect_url;
+  let redirectUrl;
+  if(!params) {
+    redirectUrl = "/"
+  } else {
+    redirectUrl = `/${params}`;
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-taupe-50 px-4">
       <div className="w-full max-w-sm">
@@ -29,7 +40,7 @@ const SignInPage = () => {
             Sign in to manage your reservations and stays.
           </p>
 
-          <LoginGoogleButton />
+          <LoginGoogleButton redirectUrl={redirectUrl}/>
 
           <p className="text-center text-xs text-taupe-400 mt-8 leading-relaxed">
             By continuing, you agree to Melura&apos;s{" "}

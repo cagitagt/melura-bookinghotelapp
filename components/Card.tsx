@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IoPeopleOutline } from "react-icons/io5";
+import { Room } from "@/app/generated/prisma/client";
+import { formatCurrency } from "@/lib/utils";
 
-const Card = () => {
+const Card = ({room}: {room: Room}) => {
   return (
     <div className="group grid md:grid-cols-2 gap-10 md:gap-14 items-center py-10 border-b border-taupe-100">
-      <div className="relative h-80 md:h-[420px] overflow-hidden rounded-sm">
+      <div className="relative h-80 md:h-105 overflow-hidden rounded-sm">
         <Image
-          src="/assets/img/building.jpg"
+          src={room.image}
           alt="Room"
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -22,13 +24,13 @@ const Card = () => {
           <span className="h-px flex-1 bg-taupe-200" />
           <span className="flex items-center gap-1.5 text-xs text-taupe-500">
             <IoPeopleOutline className="text-sm" />
-            2 people
+            {room.capacity} {room.capacity === 1 ? "Person" : "People"}
           </span>
         </div>
 
         <h4 className="text-4xl font-playfair font-normal text-taupe-900 mb-6">
-          <Link href="#" className="hover:text-taupe-600 transition-colors duration-300">
-            Luxury Room
+          <Link href={`/room/${room.id}`} className="hover:text-taupe-600 transition-colors duration-300">
+            {room.name}
           </Link>
         </h4>
 
@@ -44,13 +46,13 @@ const Card = () => {
               From
             </span>
             <span className="text-2xl font-playfair text-taupe-900">
-              Rp 2.100.000
+              {formatCurrency(room.price)}
             </span>
-            <span className="text-taupe-400 text-sm"> / night</span>
+            <span className="text-taupe-400 text-sm"> / Night</span>
           </div>
 
           <Link
-            href="#"
+            href={`/room/${room.id}`}
             className="text-sm font-medium text-taupe-900 border-b border-taupe-900 pb-0.5 hover:text-taupe-600 hover:border-taupe-600 transition-colors duration-300"
           >
             Book now →

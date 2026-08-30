@@ -1,13 +1,13 @@
 import CreateForm from "./create-form";
-import {getAmenities} from "@/lib/data";
+import { getAmenities } from "@/lib/data";
 
 const CreateRoom = async () => {
-    const amenities = await getAmenities();
-    if(!amenities) return null;
+  const amenities = await getAmenities();
+  if (!amenities) return null;
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-taupe-800 mb-4">
+      <h1 className="text-2xl font-playfair font-normal text-taupe-900 mb-6">
         Create New Room
       </h1>
       <CreateForm amenities={amenities} />
