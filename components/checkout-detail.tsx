@@ -2,6 +2,7 @@ import { getReservationById } from "@/lib/data";
 import Image from "next/image";  
 import { formatDate, formatCurrency } from "@/lib/utils";
 import {differenceInCalendarDays} from "date-fns";
+import PaymentButton from "./payment-button";
 
 const CheckoutDetail = async ({reservationId}: {reservationId: string}) => {
     const reservation = await getReservationById(reservationId);
@@ -13,7 +14,7 @@ const CheckoutDetail = async ({reservationId}: {reservationId: string}) => {
   return (
     <div className="grid md:grid-cols-2 gap-12">
         <div className="order-2">
-            <div className="relative aspect-[4/3] mb-5">
+            <div className="relative aspect-4/3 mb-5">
                 <Image src={reservation.Room.image} alt="Image" fill className="object-cover"/>
             </div>
             <h5 className="font-playfair text-3xl font-normal text-taupe-900 mb-1">
@@ -23,6 +24,7 @@ const CheckoutDetail = async ({reservationId}: {reservationId: string}) => {
                 {formatCurrency(reservation.price)} / Night
             </p>
             {/* Payment Button */}
+            <PaymentButton reservation={reservation}/>
         </div>
 
         <div>
