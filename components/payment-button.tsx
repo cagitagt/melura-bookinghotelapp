@@ -32,8 +32,12 @@ const PaymentButton = ({
         })
     }
   return (
-    <button onClick={handlePayment} className='px-10 py-4 mt-2 text-center font-semibold text-taupe-50 w-full bg-taupe-400 rounded-sm hover:bg-taupe-600 cursor-pointer'>
-        Process Payment
+    <button
+        onClick={handlePayment}
+        disabled={isPending}
+        className="w-full mt-6 px-8 py-3 text-xs uppercase tracking-wide border border-taupe-900 text-taupe-900 hover:bg-taupe-900 hover:text-white transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+    >
+        {isPending ? "Processing..." : "Process Payment"} 
     </button>
   )
 }
